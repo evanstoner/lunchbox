@@ -15,7 +15,7 @@ spec:
   storageClassName: lvms-vg1
   volumeMode: Filesystem
 ---
-# make registry persistent and available outside the cluster
+# makes the registry available outside the cluster
 apiVersion: imageregistry.operator.openshift.io/v1
 kind: Config
 metadata:
@@ -28,3 +28,14 @@ spec:
     pvc:
       claim: image-registry-storage
   defaultRoute: true
+  # everything below here is the default value
+  logLevel: Normal
+  rolloutStrategy: Recreate
+  operatorLogLevel: Normal
+  requests:
+    read:
+      maxWaitInQueue: 0s
+    write:
+      maxWaitInQueue: 0s
+  observedConfig: null
+  replicas: 1
