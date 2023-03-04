@@ -15,8 +15,7 @@ spec:
   storageClassName: lvms-vg1
   volumeMode: Filesystem
 ---
-# sets managementStage=Managed and sets storage.pvc.claim so that the internal
-# registry is available and persistent
+# make registry persistent and available outside the cluster
 apiVersion: imageregistry.operator.openshift.io/v1
 kind: Config
 metadata:
@@ -24,19 +23,8 @@ metadata:
     - imageregistry.operator.openshift.io/finalizer
   name: cluster
 spec:
-  logLevel: Normal
-  rolloutStrategy: Recreate
-  operatorLogLevel: Normal
-  requests:
-    read:
-      maxWaitInQueue: 0s
-    write:
-      maxWaitInQueue: 0s
-  observedConfig: null
   managementState: Managed
-  proxy: {}
-  unsupportedConfigOverrides: null
   storage:
     pvc:
       claim: image-registry-storage
-  replicas: 1
+  defaultRoute: true
