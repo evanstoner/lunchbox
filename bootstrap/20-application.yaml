@@ -1,0 +1,16 @@
+# creates a gitops application that will apply all other lunchbox configs
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: lunchbox-application
+  namespace: openshift-gitops
+spec:
+  destination:
+    namespace: lunchbox
+    server: 'https://kubernetes.default.svc'
+  project: default
+  source:
+    path: deploy
+    repoURL: 'https://github.com/evanstoner/lunchbox.git'
+    targetRevision: main
