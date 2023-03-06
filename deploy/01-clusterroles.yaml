@@ -6,18 +6,17 @@ metadata:
   name: manage-cluster-configs
 rules:
   - verbs:
-      - create
-      - delete
-      - deletecollection
-      - get
-      - list
-      - patch
-      - update
-      - watch
+      - "*"
     apiGroups:
       - imageregistry.operator.openshift.io
     resources:
       - configs
+  - verbs:
+      - "*"
+    apiGroups:
+      - ""
+    resources:
+      - secrets
 ---
 # assign that ClusterRole to the gitops ServiceAccount
 kind: ClusterRoleBinding
