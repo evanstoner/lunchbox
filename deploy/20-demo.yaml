@@ -1,0 +1,6 @@
+---
+# create an empty project as a placeholder
+kind: Project
+apiVersion: project.openshift.io/v1
+metadata:
+  name: demo
