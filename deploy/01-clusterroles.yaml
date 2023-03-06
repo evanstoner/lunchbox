@@ -30,7 +30,7 @@ rules:
   - verbs:
       - "*"
     apiGroups:
-      - "project.openshift.io/v1"
+      - project.openshift.io
     resources:
       - projects
 ---
