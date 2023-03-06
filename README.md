@@ -79,3 +79,14 @@ list in the router's web GUI.
 1. Apply bootstrap/10-gitops.yaml (either from the command line or the **+** in
     the web console). Wait for Upgrade status to show Up to date.
 1. Apply bootstrap/20-application.yaml
+
+**Currently manual VM stuff**
+
+Create Service and Route for cockpit, start cockpit.socket, subscription-manager register,
+dnf install -y container-tools git
+
+Download and unzip https://mirror.openshift.com/pub/openshift-v4/x86_64/clients/ocp/stable/openshift-client-linux.tar.gz, move to /usr/local/bin
+
+Clone https://gitlab.com/evanstoner/ocp-intro.git
+
+Follow DEMO.md and then ocp-intro README.md
