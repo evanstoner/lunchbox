@@ -5,18 +5,34 @@ kind: ClusterRole
 metadata:
   name: manage-cluster-configs
 rules:
+  # configure the image registry
   - verbs:
       - "*"
     apiGroups:
       - imageregistry.operator.openshift.io
     resources:
       - configs
+  # configure secrets
   - verbs:
       - "*"
     apiGroups:
       - ""
     resources:
       - secrets
+  # configure routes
+  - verbs:
+      - "*"
+    apiGroups:
+      - route.openshift.io
+    resources:
+      - routes
+  # configure projects
+  - verbs:
+      - "*"
+    apiGroups:
+      - "project.openshift.io/v1"
+    resources:
+      - projects
 ---
 # assign that ClusterRole to the gitops ServiceAccount
 kind: ClusterRoleBinding
