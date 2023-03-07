@@ -11,7 +11,7 @@ _Setup for a compact OpenShift demo node aka lunchbox._
   Host 192.168.8.1
       PubkeyAcceptedAlgorithms +ssh-rsa
       HostkeyAlgorithms +ssh-rsa
-    ```
+  ```
 
 3. `ssh root@192.168.8.1`
 4. Effectively wildcard the entire `demo.local` domain to 192.168.8.10, which will
