@@ -94,3 +94,38 @@ spec:
               password: shadowman
               chpasswd: { expire: False }
           name: cloudinitdisk
+---
+# expose the VM's cockpit port so that we can make an external route next
+kind: Service
+apiVersion: v1
+metadata:
+  name: rhel9-demo
+  namespace: demo
+spec:
+  type: ClusterIP
+  selector:
+    vm.kubevirt.io/name: rhel9-demo
+  ports:
+    - name: cockpit
+      protocol: TCP
+      port: 9090
+      targetPort: 9090
+---
+# make cockpit externally accessible
+kind: Route
+apiVersion: route.openshift.io/v1
+metadata:
+  name: rhel9-demo-cockpit
+  namespace: demo
+spec:
+  host: rhel9-demo-cockpit.apps.sno.demo.local
+  to:
+    kind: Service
+    name: rhel9-demo
+    weight: 100
+  port:
+    targetPort: 9090
+  tls:
+    termination: passthrough
+    insecureEdgeTerminationPolicy: Redirect
+  wildcardPolicy: None
