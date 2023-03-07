@@ -1,0 +1,72 @@
+---
+# create an aap project, this operator can be installed namespace-scoped
+kind: Project
+apiVersion: project.openshift.io/v1
+metadata:
+  name: aap
+---
+# add gitops user to aap project
+kind: RoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: gitops-manage-aap
+  namespace: aap
+subjects:
+  - kind: ServiceAccount
+    name: openshift-gitops-argocd-application-controller
+    namespace: openshift-gitops
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: admin
+---
+# create the aap subscription
+apiVersion: operators.coreos.com/v1alpha1
+kind: Subscription
+metadata:
+  labels:
+    operators.coreos.com/ansible-automation-platform-operator.aap: ''
+  name: ansible-automation-platform-operator
+  namespace: aap
+spec:
+  channel: stable-2.3
+  installPlanApproval: Automatic
+  name: ansible-automation-platform-operator
+  source: redhat-operators
+  sourceNamespace: openshift-marketplace
+---
+# create a secret with the controller's admin password (shadowman)
+kind: Secret
+apiVersion: v1
+metadata:
+  name: aap-admin-password
+  namespace: aap
+data:
+  password: c2hhZG93bWFu
+type: Opaque
+---
+# create the controller instance
+apiVersion: automationcontroller.ansible.com/v1beta1
+kind: AutomationController
+metadata:
+  name: controller
+  namespace: aap
+spec:
+  create_preload_data: true
+  route_tls_termination_mechanism: Edge
+  garbage_collect_secrets: false
+  ingress_type: Route
+  loadbalancer_port: 80
+  no_log: true
+  image_pull_policy: IfNotPresent
+  projects_storage_size: 8Gi
+  auto_upgrade: true
+  task_privileged: false
+  projects_storage_access_mode: ReadWriteMany
+  set_self_labels: true
+  projects_persistence: false
+  replicas: 1
+  admin_user: admin
+  loadbalancer_protocol: http
+  nodeport_port: 30080
+  admin_password_secret: aap-admin-password
