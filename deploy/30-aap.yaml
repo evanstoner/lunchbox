@@ -54,7 +54,7 @@ metadata:
 spec:
   create_preload_data: true
   route_tls_termination_mechanism: Edge
-  garbage_collect_secrets: false
+  garbage_collect_secrets: true
   ingress_type: Route
   loadbalancer_port: 80
   no_log: true
@@ -62,9 +62,9 @@ spec:
   projects_storage_size: 8Gi
   auto_upgrade: true
   task_privileged: false
-  projects_storage_access_mode: ReadWriteMany
+  projects_storage_access_mode: ReadWriteOnce
   set_self_labels: true
-  projects_persistence: false
+  projects_persistence: true
   replicas: 1
   admin_user: admin
   loadbalancer_protocol: http

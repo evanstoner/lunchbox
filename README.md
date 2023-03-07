@@ -90,3 +90,5 @@ Download and unzip https://mirror.openshift.com/pub/openshift-v4/x86_64/clients/
 Clone https://gitlab.com/evanstoner/ocp-intro.git
 
 Follow DEMO.md and then ocp-intro README.md
+
+AAP: log in to controller as admin / shadowman and import your subscription
