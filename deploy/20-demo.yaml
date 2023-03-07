@@ -5,6 +5,21 @@ apiVersion: project.openshift.io/v1
 metadata:
   name: demo
 ---
+# add gitops user to demo project
+kind: RoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: gitops-manage-demo
+  namespace: demo
+subjects:
+  - kind: ServiceAccount
+    name: openshift-gitops-argocd-application-controller
+    namespace: openshift-gitops
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: admin
+---
 # create a demo VM, so we have a place to run demos inside the cluster. this is
 # especially important for those of us with an ARM chip, since the cluster is x86
 # and we won't be able to use locally-built containers on the cluster
