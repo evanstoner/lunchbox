@@ -40,22 +40,22 @@ list in the router's web GUI.
 **Create a cluster using Assisted Installer at https://console.redhat.com**
 
 1. Cluster details:
-  a. Cluster name: `sno`
-  a. Base domain: `demo.local`
-  a. Install SNO
-  a. Hosts' network configuration: Static IP
+  1. Cluster name: `sno`
+  1. Base domain: `demo.local`
+  1. Install SNO
+  1. Hosts' network configuration: Static IP
 1. Network-wide configurations:
-  a. DNS: `192.168.8.1`
-  a. Machine network: `192.168.8.0` / `24`
-  a. Default gateway: `192.168.8.1`
+  1. DNS: `192.168.8.1`
+  1. Machine network: `192.168.8.0` / `24`
+  1. Default gateway: `192.168.8.1`
 1. Host-specific configurations:
-  a. MAC address: enter the MAC you determine for the node
-  a. IP address: `192.168.8.10`
+  1. MAC address: enter the MAC you determine for the node
+  1. IP address: `192.168.8.10`
 1. Operators: install OpenShift Virt and LVM Storage
 1. Host discovery: Add host
-  a. Provisioning type: full image file
-  a. SSH public key: add your `~/.ssh/id_rsa.pub` here
-  a. Generate Discovery ISO
+  1. Provisioning type: full image file
+  1. SSH public key: add your `~/.ssh/id_rsa.pub` here
+  1. Generate Discovery ISO
 1. Burn ISO to a flash drive, [Belena Etcher](https://www.balena.io/etcher) is easy
 
 **Install the cluster**
