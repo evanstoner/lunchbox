@@ -28,10 +28,6 @@ kind: VirtualMachine
 metadata:
   labels:
     app: rhel9-demo
-    vm.kubevirt.io/template: rhel9-server-small
-    vm.kubevirt.io/template.namespace: openshift
-    vm.kubevirt.io/template.revision: '1'
-    vm.kubevirt.io/template.version: v0.24.2
   name: rhel9-demo
   namespace: demo
 spec:
@@ -39,7 +35,6 @@ spec:
     - apiVersion: cdi.kubevirt.io/v1beta1
       kind: DataVolume
       metadata:
-        creationTimestamp: null
         name: rhel9-demo
       spec:
         sourceRef:
@@ -53,14 +48,8 @@ spec:
   running: true
   template:
     metadata:
-      annotations:
-        vm.kubevirt.io/flavor: small
-        vm.kubevirt.io/os: rhel9
-        vm.kubevirt.io/workload: server
-      creationTimestamp: null
       labels:
         kubevirt.io/domain: rhel9-demo
-        kubevirt.io/size: small
     spec:
       domain:
         cpu:
@@ -76,11 +65,8 @@ spec:
                 bus: virtio
               name: cloudinitdisk
           interfaces:
-            - macAddress: '02:4b:48:00:00:00'
-              masquerade: {}
-              model: virtio
+            - masquerade: {}
               name: default
-          networkInterfaceMultiqueue: true
           rng: {}
         features:
           acpi: {}
@@ -89,8 +75,6 @@ spec:
         firmware:
           bootloader:
             efi: {}
-        machine:
-          type: pc-q35-rhel8.6.0
         resources:
           requests:
             memory: 2Gi
@@ -108,6 +92,8 @@ spec:
               user: cloud-user
               password: shadowman
               chpasswd: { expire: False }
+              runcmd:
+              - systemctl enable cockpit.socket --now
           name: cloudinitdisk
 ---
 # expose the VM's cockpit port so that we can make an external route next
